@@ -5,7 +5,6 @@ module.exports = {
     const id = getUserId(ctx);
 
     const user = await ctx.prisma.user({ id });
-    console.log(user)
     
     if (!user) {
       throw new Error();
