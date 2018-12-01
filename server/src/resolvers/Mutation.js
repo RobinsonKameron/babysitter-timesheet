@@ -1,6 +1,7 @@
 const { hash, compare } = require('bcrypt')
 const { sign } = require('jsonwebtoken')
 const { APP_SECRET, getUserId } = require('../utils')
+const stripe = require("./Stripe");
 
 const Mutation = {
   signup: async (parent, { name, email, password }, context) => {
@@ -46,6 +47,7 @@ const Mutation = {
       data: { published: true },
     })
   },
+  ...stripe
 }
 
 module.exports = {
