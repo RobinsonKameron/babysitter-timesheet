@@ -10,7 +10,7 @@ import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 import MyProfile from './screens/MyProfile';
 import NewChildForm from './screens/NewChildForm';
-import Child from './screens/Child';
+import Child from './screens/ChildProfile';
 import Main from './screens/Main';
 
 const client = new ApolloClient({
