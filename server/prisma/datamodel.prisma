@@ -1,3 +1,8 @@
+enum AccountType {
+  TRIAL
+  MONTHLY_PAID
+}
+
 type Post {
   id: ID! @unique
   createdAt: DateTime!
@@ -14,4 +19,9 @@ type User {
   password: String!
   name: String
   posts: [Post!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  type: AccountType! @default(value: "TRIAL")
+  ccLast4: String
+  stripeId: String
 }
