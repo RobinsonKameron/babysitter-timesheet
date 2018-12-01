@@ -14,7 +14,7 @@ import Child from './screens/ChildProfile';
 import Main from './screens/Main';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000',
+  uri: 'https://us1.prisma.sh/brendan-f224bf/hello-world/dev',
   // cache: new InMemoryCache(),
 });
 
