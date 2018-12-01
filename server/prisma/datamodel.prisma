@@ -3,6 +3,17 @@ enum AccountType {
   MONTHLY_PAID
 }
 
+enum RateType {
+  HOURLY
+  FLAT
+}
+
+enum Gender {
+  BOY
+  GIRL
+  OTHER
+}
+
 type Post {
   id: ID! @unique
   createdAt: DateTime!
@@ -10,18 +21,43 @@ type Post {
   published: Boolean! @default(value: "false")
   title: String!
   content: String
-  author: User!
+  sitter: User!
 }
 
 type User {
   id: ID! @unique
   email: String! @unique
   password: String!
-  name: String
   posts: [Post!]!
   createdAt: DateTime!
   updatedAt: DateTime!
   type: AccountType! @default(value: "TRIAL")
   ccLast4: String
   stripeId: String
+
+  firstName: String
+  lastName: String
+  children: [Child!]!
+}
+
+type Child {
+  id: ID! @unique
+  firstName: String!
+  lastName: String!
+  rateAmount: Int
+  rateType: RateType
+  gender: Gender
+
+  dates: [SitDates!]!
+}
+
+type SitDates {
+  id: ID! @unique
+  month: String
+  day: String
+  year: String
+  hours: Int
+  paid: Int
+  dateObjectId: ID
+  isFixedRate: Boolean
 }
