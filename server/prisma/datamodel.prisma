@@ -47,7 +47,6 @@ type Child {
   rateAmount: Int
   rateType: RateType
   gender: Gender
-
   dates: [SitDates!]!
 }
 
