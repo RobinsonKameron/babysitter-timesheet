@@ -14,7 +14,26 @@ enum Gender {
   OTHER
 }
 
-type User {
+enum RateType {
+  HOURLY
+  FLAT
+}
+
+type Child {
+  id: ID! @unique
+  firstName: String!
+  lastName: String!
+  birthday: DateTime
+  owner: User!
+  rateAmount: Float!
+  rateType: RateType!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  dates: [Date!]!
+  gender: Gender!
+}
+
+type Date {
   id: ID! @unique
   email: String! @unique
   password: String!
