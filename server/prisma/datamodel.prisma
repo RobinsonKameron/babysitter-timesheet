@@ -9,8 +9,8 @@ enum RateType {
 }
 
 enum Gender {
-  BOY
-  GIRL
+  MALE
+  FEMALE
   OTHER
 }
 
