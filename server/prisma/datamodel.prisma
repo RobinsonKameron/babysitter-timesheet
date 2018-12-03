@@ -14,21 +14,10 @@ enum Gender {
   OTHER
 }
 
-type Post {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  published: Boolean! @default(value: "false")
-  title: String!
-  content: String
-  sitter: User!
-}
-
 type User {
   id: ID! @unique
   email: String! @unique
   password: String!
-  posts: [Post!]!
   createdAt: DateTime!
   updatedAt: DateTime!
   type: AccountType! @default(value: "TRIAL")

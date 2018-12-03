@@ -13,19 +13,15 @@ var models = [
     embedded: false
   },
   {
+    name: "Date",
+    embedded: false
+  },
+  {
     name: "Gender",
     embedded: false
   },
   {
-    name: "Post",
-    embedded: false
-  },
-  {
     name: "RateType",
-    embedded: false
-  },
-  {
-    name: "SitDates",
     embedded: false
   },
   {
