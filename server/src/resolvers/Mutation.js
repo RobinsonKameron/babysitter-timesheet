@@ -1,6 +1,6 @@
 const { hash, compare } = require('bcrypt')
 const { sign } = require('jsonwebtoken')
-const { APP_SECRET, getUserId } = require('../utils')
+const { APP_SECRET } = require('../utils')
 const stripe = require("./Stripe");
 
 const Mutation = {
@@ -29,23 +29,6 @@ const Mutation = {
       token: sign({ userId: user.id }, APP_SECRET),
       user,
     }
-  },
-  createDraft: async (parent, { title, content }, context) => {
-    const userId = getUserId(context)
-    return context.prisma.createPost({
-      title,
-      content,
-      author: { connect: { id: userId } },
-    })
-  },
-  deletePost: async (parent, { id }, context) => {
-    return context.prisma.deletePost({ id })
-  },
-  publish: async (parent, { id }, context) => {
-    return context.prisma.updatePost({
-      where: { id },
-      data: { published: true },
-    })
   },
   ...stripe
 }
