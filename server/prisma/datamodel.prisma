@@ -44,19 +44,26 @@ type Child {
   id: ID! @unique
   firstName: String!
   lastName: String!
-  rateAmount: Int
-  rateType: RateType
-  gender: Gender
-  dates: [SitDates!]!
+  birthday: DateTime
+  owner: User!
+  rateAmount: Float!
+  rateType: RateType!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  dates: [Date!]!
+  gender: Gender!
 }
 
-type SitDates {
+type Date {
   id: ID! @unique
-  month: String
-  day: String
-  year: String
-  hours: Int
-  paid: Int
-  dateObjectId: ID
+  dateObjectId: String!
+  owner: Child!
+  month: Float!
+  day: Float!
+  year: Float!
+  hours: Float!
+  dayOfWeek: String
+  notes: String
+  paid: Float
   isFixedRate: Boolean
 }
