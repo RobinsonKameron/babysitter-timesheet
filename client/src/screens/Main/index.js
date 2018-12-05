@@ -15,7 +15,7 @@ import { theme } from '../../shared/theme';
 const LoadingWrapper = styled.div`
   height: calc(100vh - ${theme.heights.navBar}px);
   background-color: ${theme.colors.background};
-  padding: 5rem 3rem;
+  padding-top: calc(${theme.heights.navBar}px + 5rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -122,13 +122,12 @@ class Inner extends React.PureComponent {
   };
 
   render() {
-    const { monthToView } = this.state;
     return (
       <Layout>
-        <NavBar />
+        <NavBar isUserSignedIn />
         <Layout>
           <Query query={FETCH_USER_QUERY}>
-            {(props) => {
+            {((props) => {
               if (props.loading) {
                 return (
                   <LoadingWrapper>
@@ -140,39 +139,28 @@ class Inner extends React.PureComponent {
 
               if (
                 !props.data
-                || !props.data.user
-                || !props.data.user.children
-              ) {
+                    || !props.data.user
+                    || !props.data.user.children) {
                 return <div>Something went wrong</div>;
               }
 
-              const [month, year] = moment(monthToView)
-                .format('MM YY')
-                .split(' ');
-              const monthlyTotal = monthlyTotalAllChildren(
-                props.data.user.children,
-                parseInt(month),
-                parseInt(year),
-              );
+              const [month, year] = moment(this.state.monthToView).format('MM YY').split(' ');
+              const monthlyTotal = monthlyTotalAllChildren(props.data.user.children, parseInt(month), parseInt(year));
 
               const children = mapQueryToKids(props.data.user.children);
 
-              const data = buildDatasheet(
-                children,
-                monthToView,
-                this.onFixedCheckboxChange,
-              );
+              const data = buildDatasheet(children, this.state.monthToView, this.onFixedCheckboxChange);
 
               return (
                 <Presentation
                   onCalendarMonthClick={this.onCalendarMonthClick}
-                  monthToView={monthToView}
+                  monthToView={this.state.monthToView}
                   monthlyTotal={monthlyTotal}
                   data={data}
                   onCellsChanged={this.onCellsChanged}
                 />
               );
-            }}
+            })}
           </Query>
         </Layout>
       </Layout>
