@@ -1,4 +1,5 @@
 const { hash, compare } = require('bcrypt')
+const { removeAllUsersSessions } = require('../../utils');
 const { userSessionIdPrefix } = require('../../constants');
 
 module.exports = {
