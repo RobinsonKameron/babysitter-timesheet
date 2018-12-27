@@ -5,6 +5,7 @@ type Query {
   me: User!
   dates: [Date]
   sittes: [Sitte]
+  sitte(where: SitteWhereUniqueInput!): Sitte
 }
 
 type Mutation {
