@@ -5,12 +5,12 @@ import gql from 'graphql-tag';
 import MyProfile from './screens/MyProfile';
 import NewChild from './screens/NewChild';
 import LoginSignup from './screens/LoginSignup';
-import ChildInfo from './screens/ChildInfo';
 import Main from './screens/Main';
 import { Layout } from './components/Layout';
 import { RequireSubscription } from './hocs/RequireSubscription';
 import { client } from './graphql/initApollo';
 import { Logout } from './screens/Logout/index';
+import ChildProfile from './screens/ChildProfile';
 
 const NotFound = () => <h1>404</h1>;
 
@@ -25,7 +25,7 @@ const loggedInRoutes = isLoggedIn => isLoggedIn && (
     path="/"
     component={RequireSubscription(() => (
       <Switch>
-        <Route exact path="/child/:id" component={ChildInfo} />
+        <Route exact path="/child/:id" component={ChildProfile} />
         <Route exact path="/new-sitte" component={NewChild} />
         <Route exact path="/my-profile" render={MyProfile} />
         <Route exact path="/sheet/:date" component={Main} />
