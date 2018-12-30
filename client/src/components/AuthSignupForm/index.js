@@ -73,7 +73,7 @@ class AuthSignupForm extends React.PureComponent {
 
             return errors;
           }}
-          onSubmit={async (values, actions) => {
+          onSubmit={async (values) => {
             const response = await createSignup({
               variables: {
                 firstName: values.firstName,
