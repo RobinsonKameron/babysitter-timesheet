@@ -28,6 +28,27 @@ type User {
   sittes: [Sitte!]!
 }
 
+enum AllergyType {
+  DRUG
+  FOOD
+}
+
+enum AllergySeverity {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+type Allergy {
+  id: ID! @unique
+  name: String!
+  type: AllergyType!
+  severity: AllergySeverity!
+  owner: Sitte!
+  comment: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
 
 type Sitte {
   id: ID! @unique
@@ -41,6 +62,7 @@ type Sitte {
   updatedAt: DateTime!
   dates: [Date!]!
   gender: Gender!
+  allergies: [Allergy!]!
 }
 
 type Date {

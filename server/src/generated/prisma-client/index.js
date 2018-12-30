@@ -9,6 +9,18 @@ var models = [
     embedded: false
   },
   {
+    name: "Allergy",
+    embedded: false
+  },
+  {
+    name: "AllergySeverity",
+    embedded: false
+  },
+  {
+    name: "AllergyType",
+    embedded: false
+  },
+  {
     name: "Date",
     embedded: false
   },

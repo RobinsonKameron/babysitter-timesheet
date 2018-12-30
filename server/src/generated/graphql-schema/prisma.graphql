@@ -3,6 +3,10 @@ enum AccountType {
   MONTHLY_PAID
 }
 
+type AggregateAllergy {
+  count: Int!
+}
+
 type AggregateDate {
   count: Int!
 }
@@ -13,6 +17,200 @@ type AggregateSitte {
 
 type AggregateUser {
   count: Int!
+}
+
+type Allergy {
+  id: ID!
+  name: String!
+  type: AllergyType!
+  severity: AllergySeverity!
+  owner: Sitte!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type AllergyConnection {
+  pageInfo: PageInfo!
+  edges: [AllergyEdge]!
+  aggregate: AggregateAllergy!
+}
+
+input AllergyCreateInput {
+  name: String!
+  type: AllergyType!
+  severity: AllergySeverity!
+  owner: SitteCreateOneWithoutAllergiesInput!
+}
+
+input AllergyCreateManyWithoutOwnerInput {
+  create: [AllergyCreateWithoutOwnerInput!]
+  connect: [AllergyWhereUniqueInput!]
+}
+
+input AllergyCreateWithoutOwnerInput {
+  name: String!
+  type: AllergyType!
+  severity: AllergySeverity!
+}
+
+type AllergyEdge {
+  node: Allergy!
+  cursor: String!
+}
+
+enum AllergyOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  type_ASC
+  type_DESC
+  severity_ASC
+  severity_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type AllergyPreviousValues {
+  id: ID!
+  name: String!
+  type: AllergyType!
+  severity: AllergySeverity!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum AllergySeverity {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+type AllergySubscriptionPayload {
+  mutation: MutationType!
+  node: Allergy
+  updatedFields: [String!]
+  previousValues: AllergyPreviousValues
+}
+
+input AllergySubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: AllergyWhereInput
+  AND: [AllergySubscriptionWhereInput!]
+  OR: [AllergySubscriptionWhereInput!]
+  NOT: [AllergySubscriptionWhereInput!]
+}
+
+enum AllergyType {
+  DRUG
+  FOOD
+}
+
+input AllergyUpdateInput {
+  name: String
+  type: AllergyType
+  severity: AllergySeverity
+  owner: SitteUpdateOneRequiredWithoutAllergiesInput
+}
+
+input AllergyUpdateManyMutationInput {
+  name: String
+  type: AllergyType
+  severity: AllergySeverity
+}
+
+input AllergyUpdateManyWithoutOwnerInput {
+  create: [AllergyCreateWithoutOwnerInput!]
+  delete: [AllergyWhereUniqueInput!]
+  connect: [AllergyWhereUniqueInput!]
+  disconnect: [AllergyWhereUniqueInput!]
+  update: [AllergyUpdateWithWhereUniqueWithoutOwnerInput!]
+  upsert: [AllergyUpsertWithWhereUniqueWithoutOwnerInput!]
+}
+
+input AllergyUpdateWithoutOwnerDataInput {
+  name: String
+  type: AllergyType
+  severity: AllergySeverity
+}
+
+input AllergyUpdateWithWhereUniqueWithoutOwnerInput {
+  where: AllergyWhereUniqueInput!
+  data: AllergyUpdateWithoutOwnerDataInput!
+}
+
+input AllergyUpsertWithWhereUniqueWithoutOwnerInput {
+  where: AllergyWhereUniqueInput!
+  update: AllergyUpdateWithoutOwnerDataInput!
+  create: AllergyCreateWithoutOwnerInput!
+}
+
+input AllergyWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  type: AllergyType
+  type_not: AllergyType
+  type_in: [AllergyType!]
+  type_not_in: [AllergyType!]
+  severity: AllergySeverity
+  severity_not: AllergySeverity
+  severity_in: [AllergySeverity!]
+  severity_not_in: [AllergySeverity!]
+  owner: SitteWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [AllergyWhereInput!]
+  OR: [AllergyWhereInput!]
+  NOT: [AllergyWhereInput!]
+}
+
+input AllergyWhereUniqueInput {
+  id: ID
 }
 
 type BatchPayload {
@@ -309,6 +507,12 @@ enum Gender {
 scalar Long
 
 type Mutation {
+  createAllergy(data: AllergyCreateInput!): Allergy!
+  updateAllergy(data: AllergyUpdateInput!, where: AllergyWhereUniqueInput!): Allergy
+  updateManyAllergies(data: AllergyUpdateManyMutationInput!, where: AllergyWhereInput): BatchPayload!
+  upsertAllergy(where: AllergyWhereUniqueInput!, create: AllergyCreateInput!, update: AllergyUpdateInput!): Allergy!
+  deleteAllergy(where: AllergyWhereUniqueInput!): Allergy
+  deleteManyAllergies(where: AllergyWhereInput): BatchPayload!
   createDate(data: DateCreateInput!): Date!
   updateDate(data: DateUpdateInput!, where: DateWhereUniqueInput!): Date
   updateManyDates(data: DateUpdateManyMutationInput!, where: DateWhereInput): BatchPayload!
@@ -347,6 +551,9 @@ type PageInfo {
 }
 
 type Query {
+  allergy(where: AllergyWhereUniqueInput!): Allergy
+  allergies(where: AllergyWhereInput, orderBy: AllergyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Allergy]!
+  allergiesConnection(where: AllergyWhereInput, orderBy: AllergyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AllergyConnection!
   date(where: DateWhereUniqueInput!): Date
   dates(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Date]!
   datesConnection(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DateConnection!
@@ -376,6 +583,7 @@ type Sitte {
   updatedAt: DateTime!
   dates(where: DateWhereInput, orderBy: DateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Date!]
   gender: Gender!
+  allergies(where: AllergyWhereInput, orderBy: AllergyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Allergy!]
 }
 
 type SitteConnection {
@@ -393,6 +601,7 @@ input SitteCreateInput {
   rateType: RateType!
   dates: DateCreateManyWithoutOwnerInput
   gender: Gender!
+  allergies: AllergyCreateManyWithoutOwnerInput
 }
 
 input SitteCreateManyWithoutOwnerInput {
@@ -400,9 +609,25 @@ input SitteCreateManyWithoutOwnerInput {
   connect: [SitteWhereUniqueInput!]
 }
 
+input SitteCreateOneWithoutAllergiesInput {
+  create: SitteCreateWithoutAllergiesInput
+  connect: SitteWhereUniqueInput
+}
+
 input SitteCreateOneWithoutDatesInput {
   create: SitteCreateWithoutDatesInput
   connect: SitteWhereUniqueInput
+}
+
+input SitteCreateWithoutAllergiesInput {
+  firstName: String!
+  lastName: String!
+  birthday: DateTime
+  owner: UserCreateOneWithoutSittesInput!
+  rateAmount: Float!
+  rateType: RateType!
+  dates: DateCreateManyWithoutOwnerInput
+  gender: Gender!
 }
 
 input SitteCreateWithoutDatesInput {
@@ -413,6 +638,7 @@ input SitteCreateWithoutDatesInput {
   rateAmount: Float!
   rateType: RateType!
   gender: Gender!
+  allergies: AllergyCreateManyWithoutOwnerInput
 }
 
 input SitteCreateWithoutOwnerInput {
@@ -423,6 +649,7 @@ input SitteCreateWithoutOwnerInput {
   rateType: RateType!
   dates: DateCreateManyWithoutOwnerInput
   gender: Gender!
+  allergies: AllergyCreateManyWithoutOwnerInput
 }
 
 type SitteEdge {
@@ -490,6 +717,7 @@ input SitteUpdateInput {
   rateType: RateType
   dates: DateUpdateManyWithoutOwnerInput
   gender: Gender
+  allergies: AllergyUpdateManyWithoutOwnerInput
 }
 
 input SitteUpdateManyMutationInput {
@@ -510,11 +738,29 @@ input SitteUpdateManyWithoutOwnerInput {
   upsert: [SitteUpsertWithWhereUniqueWithoutOwnerInput!]
 }
 
+input SitteUpdateOneRequiredWithoutAllergiesInput {
+  create: SitteCreateWithoutAllergiesInput
+  update: SitteUpdateWithoutAllergiesDataInput
+  upsert: SitteUpsertWithoutAllergiesInput
+  connect: SitteWhereUniqueInput
+}
+
 input SitteUpdateOneRequiredWithoutDatesInput {
   create: SitteCreateWithoutDatesInput
   update: SitteUpdateWithoutDatesDataInput
   upsert: SitteUpsertWithoutDatesInput
   connect: SitteWhereUniqueInput
+}
+
+input SitteUpdateWithoutAllergiesDataInput {
+  firstName: String
+  lastName: String
+  birthday: DateTime
+  owner: UserUpdateOneRequiredWithoutSittesInput
+  rateAmount: Float
+  rateType: RateType
+  dates: DateUpdateManyWithoutOwnerInput
+  gender: Gender
 }
 
 input SitteUpdateWithoutDatesDataInput {
@@ -525,6 +771,7 @@ input SitteUpdateWithoutDatesDataInput {
   rateAmount: Float
   rateType: RateType
   gender: Gender
+  allergies: AllergyUpdateManyWithoutOwnerInput
 }
 
 input SitteUpdateWithoutOwnerDataInput {
@@ -535,11 +782,17 @@ input SitteUpdateWithoutOwnerDataInput {
   rateType: RateType
   dates: DateUpdateManyWithoutOwnerInput
   gender: Gender
+  allergies: AllergyUpdateManyWithoutOwnerInput
 }
 
 input SitteUpdateWithWhereUniqueWithoutOwnerInput {
   where: SitteWhereUniqueInput!
   data: SitteUpdateWithoutOwnerDataInput!
+}
+
+input SitteUpsertWithoutAllergiesInput {
+  update: SitteUpdateWithoutAllergiesDataInput!
+  create: SitteCreateWithoutAllergiesInput!
 }
 
 input SitteUpsertWithoutDatesInput {
@@ -640,6 +893,9 @@ input SitteWhereInput {
   gender_not: Gender
   gender_in: [Gender!]
   gender_not_in: [Gender!]
+  allergies_every: AllergyWhereInput
+  allergies_some: AllergyWhereInput
+  allergies_none: AllergyWhereInput
   AND: [SitteWhereInput!]
   OR: [SitteWhereInput!]
   NOT: [SitteWhereInput!]
@@ -650,6 +906,7 @@ input SitteWhereUniqueInput {
 }
 
 type Subscription {
+  allergy(where: AllergySubscriptionWhereInput): AllergySubscriptionPayload
   date(where: DateSubscriptionWhereInput): DateSubscriptionPayload
   sitte(where: SitteSubscriptionWhereInput): SitteSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
