@@ -15,6 +15,13 @@ export const SITTE_QUERY = gql`
         firstName
         lastName
       }
+      allergies {
+        id
+        name
+        severity
+        type
+        updatedAt
+      }
     }
   }
 `;
