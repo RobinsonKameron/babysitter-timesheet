@@ -81,6 +81,7 @@ class Inner extends React.PureComponent {
           year: parseFloat(year),
           hours: parseFloat(change.value) || 0,
           dayOfWeek,
+          paid: true,
         },
       });
     });
