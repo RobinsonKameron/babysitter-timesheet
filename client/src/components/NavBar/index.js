@@ -78,7 +78,7 @@ const NavBar = withRouter(({ isLoggedIn, history }) => {
   const DropdownMenuWithHistory = () => <DropdownMenu history={history} />;
   return (
     <Wrapper>
-      <StyledLink to={isLoggedIn ? `/sheet/${formatDateForUrl}` : '/register'}>
+      <StyledLink to={isLoggedIn ? `/calendar` : '/register'}>
         <span role="img" aria-label="baby">👶</span>
         <h1>Sitter Sheet</h1>
       </StyledLink>
